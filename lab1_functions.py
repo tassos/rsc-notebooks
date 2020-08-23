@@ -4,9 +4,14 @@ import matplotlib.pyplot as plt
 import math as m
 from matplotlib import animation
 
-def showAxes(Z):
+def showAxes(x,y,z):
 
 
+    Zx = np.linspace(0,x)
+    Zy = np.linspace(0,y)
+    Zz = np.linspace(0,z)
+    Z  = np.array([Zx,Zy,Zz]) 
+    
     ### setting up 3d figure with limits on axes
     fig = plt.figure()
     ax = plt.axes(projection='3d')
