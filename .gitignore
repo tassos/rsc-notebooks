@@ -1,3 +1,4 @@
 .ipynb_checkpoints*
 *.xopp
 *~
+__pycache__/
