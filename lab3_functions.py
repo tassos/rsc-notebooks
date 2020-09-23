@@ -7,8 +7,9 @@ import time
 
 def defineJoints():
     
-    img = plt.imread("fig2-3.png")
+    img = plt.imread("artwork/DGM/fig2-3.png")
     fig, ax = plt.subplots()
+    plt.axis('off')
 
 
 
@@ -49,8 +50,9 @@ def defineJoints():
 
 def addZ():
     
-    img = plt.imread("fig2-3.png")
+    img = plt.imread("artwork/DGM/fig2-3.png")
     fig, ax = plt.subplots()
+    plt.axis('off')
 
 
     #Z1
@@ -86,8 +88,9 @@ def addZ():
     
 def addX():
     
-    img = plt.imread("fig2-3.png")
+    img = plt.imread("artwork/DGM/fig2-3.png")
     fig, ax = plt.subplots()
+    plt.axis('off')
 
 
     #Z1
@@ -144,8 +147,9 @@ def addX():
     
 def addY():
     
-    img = plt.imread("fig2-3.png")
+    img = plt.imread("artwork/DGM/fig2-3.png")
     fig, ax = plt.subplots()
+    plt.axis('off')
 
 
     #Z1
@@ -221,8 +225,9 @@ def addY():
     
     
 def ref_and_fin():
-    img = plt.imread("fig2-3.png")
+    img = plt.imread("artwork/DGM/fig2-3.png")
     fig, ax = plt.subplots()
+    plt.axis('off')
 
 
     #Z0
