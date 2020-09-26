@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+from mpl_toolkits.mplot3d import axes3d
 import numpy as np
 from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
@@ -362,9 +365,6 @@ def RotY(theta):
     linez.set_data(Zx, Zy)
     linez.set_3d_properties(Zz)
     
-
-    
-
 def RotZ(theta):
     ch  = np.linspace(0,theta,25)
 
@@ -428,57 +428,203 @@ def RotZ(theta):
     linez.set_3d_properties(Zzch)
     
     
-        
-def TransLeft(d):
-    ch  = np.linspace(0,d,25)
 
-    #set plot
+def tfrx(a):    
+    return np.array([[1,0,0,0],[0,m.cos(a),-m.sin(a),0],
+                     [0,m.sin(a),m.cos(a),0],[0,0,0,1]])
+def tfry(a):
+    return np.array([[m.cos(a),0,m.sin(a),0],[0,1,0,0],[-m.sin(a),0,m.cos(a),0],[0,0,0,1]])
+
+def tfrz(a):
+    return np.array([[m.cos(a),-m.sin(a),0,0],[m.sin(a),m.cos(a),0,0],[0,0,1,0],[0,0,0,1]])
+
+def tft(a):
+    return np.array([[1,0,0,a[0]],[0,1,0,a[1]],[0,0,1,a[2]],[0,0,0,1]])
+
+
+def RotateOnXRight(a):
+    
     fig = plt.figure()
-    ax  = fig.add_subplot(111, projection='3d')
+    ax = fig.add_subplot(111, projection='3d')
 
-    X  = np.linspace(0, 1, 50)
-    Y  = np.linspace(0, 1, 50)
-    Z  = np.linspace(-1, 1, 50)
-    
-    X1, Y1 = np.meshgrid(X, Y)
-    Z1 = X1+Y1
-    
-    # Set the axes' limits so they aren't recalculated each frame.
-    ax.set_zlim(-1, 1)  
-    ax.set_xlim(0, 1)  
-    ax.set_ylim(0, 1)  
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
 
-    
-    #the reference system of axes
-    Zx = np.array([0,0])
-    Zy = np.array([1,1])
-    Zz = np.array([-1,1])
-    Yx = np.array([0,1])
-    Yy = np.array([1,1])
-    Yz = np.array([-1,-1])
-    Xx = np.array([0,0])
-    Xy = np.array([1,0])
-    Xz = np.array([-1,-1])
+    ax.view_init(30, 30)
 
-    ax.plot3D(Zx,Zy,Zz,'red')
-    ax.plot3D(Xx,Xy,Xz,'blue')
-    ax.plot3D(Yx,Yy,Yz,'green')
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
 
 
-    #moving system of axes
-    Yxch = np.array([0,0.5])
-    Xych = np.array([0.5,1])
-    Zzch = np.array([-1,0])
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
     
-    linex, = ax.plot(Xx,Xych,Xz,'blue', linewidth=4)
-    liney, = ax.plot(Yxch,Yy,Yz,'green', linewidth=4)
-    linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul( mat,tfrx(a));
+    print(tf)
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
     
-    linex.set_data(Xx+d, Xych)
-    linex.set_3d_properties(Xz)
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+    
+def RotateOnXLeft(a):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul(tfrx(a),mat);
+    print(tf)
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+    
+    
+def TranslateOnXLeft(a):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul( tft([a,0,0]), mat);
+    print(tf)
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+     
         
-    liney.set_data(Yxch+d, Yy)
-    liney.set_3d_properties(Yz)
+        
+def TranslateOnXRight(a):
     
-    linez.set_data(Zx+d, Zy)
-    linez.set_3d_properties(Zzch)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul( mat,tft([a,0,0]));
+    print(tf)
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+    
+
+
