@@ -25,11 +25,11 @@ def showAxes(x,y,z):
     l = Z[0,:].size
 
     ### cross product with a helper vector that is not on the same axis, for X
-    ### cross product of X and Z for Y
 
     helper = np.full((50,3), [1,0,0])
     val = bool(0)
-
+    
+    #check if Z vector is on a different axis than [1,0,0](helper) and change if yes
     for i in range(0,l):
         if  np.array_equal(Z[:,i], np.array([1.,0.,0.])):
             val = bool(1)
@@ -37,21 +37,27 @@ def showAxes(x,y,z):
     if val == bool(1):
         helper = np.full((50,3), [0,1,0])
 
+        
+        
+    ## cross product of X and Z for Y
+
     X = np.empty([l,3])
     Y = np.empty([l,3])
 
     for i in range(0,l):
         aux = np.cross([Z[:,i]],[helper[i,:]])
         X[i,:] = aux
-    #     b1[i,:] /= np.linalg.norm(b1[i,:])
-
     
     for i in range(0,l):
         aux = np.cross(Z[:,i],X[i,:])
         Y[i,:] = aux
-    #     b2[i,:] /= np.linalg.norm(b2[i,:])
 
+    #make them limited in values
+#     found = next(i for i,v in enumerate(Z[2,:]) if v > 0.99)
     
+    Z[:,i] /= np.linalg.norm(Z[:,i])
+    X[i,:] /= np.linalg.norm(X[i,:])
+    Y[i,:] /= np.linalg.norm(Y[i,:])
 
     ax.plot3D(Z[0,:], Z[1,:], Z[2,:], 'red')
     ax.plot3D(X[:,0], X[:,1], X[:,2], 'blue')
@@ -471,7 +477,6 @@ def RotateOnXRight(a):
     
     mat = np.matmul( matrix, tfrz(1));
     tf = np.matmul( mat,tfrx(a));
-    print(tf)
 
     CoX = tf[:,0];
     CoY = tf[:,1];
@@ -517,7 +522,6 @@ def RotateOnXLeft(a):
     
     mat = np.matmul( matrix, tfrz(1));
     tf = np.matmul(tfrx(a),mat);
-    print(tf)
 
     CoX = tf[:,0];
     CoY = tf[:,1];
@@ -563,7 +567,6 @@ def TranslateOnXLeft(a):
     
     mat = np.matmul( matrix, tfrz(1));
     tf = np.matmul( tft([a,0,0]), mat);
-    print(tf)
 
     CoX = tf[:,0];
     CoY = tf[:,1];
@@ -610,7 +613,6 @@ def TranslateOnXRight(a):
     
     mat = np.matmul( matrix, tfrz(1));
     tf = np.matmul( mat,tft([a,0,0]));
-    print(tf)
 
     CoX = tf[:,0];
     CoY = tf[:,1];
