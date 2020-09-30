@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+from mpl_toolkits.mplot3d import axes3d
 import numpy as np
 from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
@@ -22,11 +25,11 @@ def showAxes(x,y,z):
     l = Z[0,:].size
 
     ### cross product with a helper vector that is not on the same axis, for X
-    ### cross product of X and Z for Y
 
     helper = np.full((50,3), [1,0,0])
     val = bool(0)
-
+    
+    #check if Z vector is on a different axis than [1,0,0](helper) and change if yes
     for i in range(0,l):
         if  np.array_equal(Z[:,i], np.array([1.,0.,0.])):
             val = bool(1)
@@ -34,21 +37,27 @@ def showAxes(x,y,z):
     if val == bool(1):
         helper = np.full((50,3), [0,1,0])
 
+        
+        
+    ## cross product of X and Z for Y
+
     X = np.empty([l,3])
     Y = np.empty([l,3])
 
     for i in range(0,l):
         aux = np.cross([Z[:,i]],[helper[i,:]])
         X[i,:] = aux
-    #     b1[i,:] /= np.linalg.norm(b1[i,:])
-
     
     for i in range(0,l):
         aux = np.cross(Z[:,i],X[i,:])
         Y[i,:] = aux
-    #     b2[i,:] /= np.linalg.norm(b2[i,:])
 
+    #make them limited in values
+#     found = next(i for i,v in enumerate(Z[2,:]) if v > 0.99)
     
+    Z[:,i] /= np.linalg.norm(Z[:,i])
+    X[i,:] /= np.linalg.norm(X[i,:])
+    Y[i,:] /= np.linalg.norm(Y[i,:])
 
     ax.plot3D(Z[0,:], Z[1,:], Z[2,:], 'red')
     ax.plot3D(X[:,0], X[:,1], X[:,2], 'blue')
@@ -106,45 +115,19 @@ def TransX(d):
     Yxch = np.array([0,0.5])
     Xych = np.array([0.5,1])
     Zzch = np.array([-1,0])
-
+    
     linex, = ax.plot(Xx,Xych,Xz,'blue', linewidth=4)
     liney, = ax.plot(Yxch,Yy,Yz,'green', linewidth=4)
     linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
-
-    def init():
-      
-        linex.set_data(Xx, Xych)
-        linex.set_3d_properties(Xz)
+    
+    linex.set_data(Xx+d, Xych)
+    linex.set_3d_properties(Xz)
         
-        liney.set_data(Yxch, Yy)
-        liney.set_3d_properties(Yz)
+    liney.set_data(Yxch+d, Yy)
+    liney.set_3d_properties(Yz)
     
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zzch)
-            
-        return linex, liney, linez,
-
-    def update(i, linex, liney, linez, Xx, Xy, Xz, Yx, Yy, Yz, Zx, Zy, Zz, d):
-            
-        var = d*i/25
-    
-        linex.set_data(Xx+var, Xy)
-        linex.set_3d_properties(Xz)
-        
-        liney.set_data(Yx+var, Yy)
-        liney.set_3d_properties(Yz)
-    
-        linez.set_data(Zx+var, Zy)
-        linez.set_3d_properties(Zz)
-    
-        return linex,liney,linez,
-    
-    anim = animation.FuncAnimation(fig, update, fargs=(linex,liney,linez, Xx, Xych, Xz, Yxch, Yy, Yz, Zx, Zy, Zzch, d),
-                               frames = len(ch)+1, interval = 200,
-                               repeat_delay = 1000, blit = False, repeat = True)
-    
-    return anim
-
+    linez.set_data(Zx+d, Zy)
+    linez.set_3d_properties(Zzch)
 
 
 def TransY(d):
@@ -193,40 +176,15 @@ def TransY(d):
     liney, = ax.plot(Yxch,Yy,Yz,'green', linewidth=4)
     linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
 
-    def init():
-  
-        linex.set_data(Xx, Xych)
-        linex.set_3d_properties(Xz)
-    
-        liney.set_data(Yxch, Yy)
-        liney.set_3d_properties(Yz)
-    
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zzch)
-        
-        return linex, liney, linez,
+    linex.set_data(Xx, Xych+d)
+    linex.set_3d_properties(Xz)
 
-    def update(i, linex, liney, linez, Xx, Xy, Xz, Yx, Yy, Yz, Zx, Zy, Zz, d):
+    liney.set_data(Yxch, Yy+d)
+    liney.set_3d_properties(Yz)
 
-        var = d*i/25
-    
-        linex.set_data(Xx, Xy+var)
-        linex.set_3d_properties(Xz)
-    
-        liney.set_data(Yx, Yy+var)
-        liney.set_3d_properties(Yz)
-    
-        linez.set_data(Zx, Zy+var)
-        linez.set_3d_properties(Zz)
-    
-        return linex,liney,linez,
+    linez.set_data(Zx, Zy+d)
+    linez.set_3d_properties(Zzch)
 
-    anim = animation.FuncAnimation(fig, update, fargs=(linex,liney,linez, 
-                                                   Xx, Xych, Xz, Yxch, 
-                                                   Yy, Yz, Zx, Zy, Zzch, d),
-                           frames = len(ch)+1, interval=200,
-                           repeat_delay=1000, blit=False, repeat = True)
-    return anim
 
 
 def TransZ(d):
@@ -248,7 +206,6 @@ def TransZ(d):
     ax.set_xlim(0, 1)  
     ax.set_ylim(0, 1)  
 
-    
     
     #the reference plane
     Zx = np.array([0,0])
@@ -276,38 +233,18 @@ def TransZ(d):
     liney, = ax.plot(Yxch,Yy,Yz,'green', linewidth=4)
     linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
 
-    def init():
-      
-        linex.set_data(Xx, Xych)
-        linex.set_3d_properties(Xz)
-    
-        liney.set_data(Yxch, Yy)
-        liney.set_3d_properties(Yz)
-    
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zzch)
-        
-        return linex, liney, linez,
 
-    def animate(i, linex, liney, linez, Xx, Xy, Xz, Yx, Yy, Yz, Zx, Zy, Zz, d):
+    linex.set_data(Xx, Xych)
+    linex.set_3d_properties(Xz+d)
 
-        var = i*d/25
-    
-        linex.set_data(Xx, Xy)
-        linex.set_3d_properties(Xz+var)
-    
-        liney.set_data(Yx, Yy)
-        liney.set_3d_properties(Yz+var)
-    
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zz+var)
-    
-        return linex,liney,linez,
+    liney.set_data(Yxch, Yy)
+    liney.set_3d_properties(Yz+d)
 
-    anim = animation.FuncAnimation(fig, animate, fargs=(linex,liney,linez, Xx, Xych, Xz, Yxch, Yy, Yz, Zx, Zy, Zzch, d),
-                           frames = len(ch)+1, interval=200,
-                           repeat_delay=1000, blit=False, repeat = True)
-    return anim
+    linez.set_data(Zx, Zy)
+    linez.set_3d_properties(Zzch+d)
+
+
+
 
 def RotX(theta):
     ch  = np.linspace(0,theta,25)
@@ -357,46 +294,21 @@ def RotX(theta):
     liney, = ax.plot(Yx,Yych,Yz,'green', linewidth=4)
     linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
 
-    def init():
-  
-        linex.set_data(Xxch, Xy)
-        linex.set_3d_properties(Xz)
+    linex.set_data(Xxch, Xy)
+    linex.set_3d_properties(Xz)
+
+    Yy = np.array([0,0.5*m.sin(m.pi/2+theta)])     
+    Yz = np.array([0,0.5*m.cos(m.pi/2+theta)])
+    liney.set_data(Yx, Yy)
+    liney.set_3d_properties(Yz)
+
+    Zy = np.array([0,0.5*m.sin(theta)])     
+    Zz = np.array([0,0.5*m.cos(theta)])
+    linez.set_data(Zx, Zy)
+    linez.set_3d_properties(Zz)
+
     
-        liney.set_data(Yx, Yych)
-        liney.set_3d_properties(Yz)
     
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zzch)
-        
-        return linex, liney, linez,
-
-
-    def update(i, linex, liney, linez, Xx, Xy, Xz, Yx, Yy, Yz, Zx, Zy, Zz, theta):
-
-        var = theta*i/25
-    
-        linex.set_data(Xx, Xy)
-        linex.set_3d_properties(Xz)
-      
-        Yy = np.array([0,0.5*m.sin(m.pi/2+var)])     
-        Yz = np.array([0,0.5*m.cos(m.pi/2+var)])
-        liney.set_data(Yx, Yy)
-        liney.set_3d_properties(Yz)
-    
-        Zy = np.array([0,0.5*m.sin(var)])     
-        Zz = np.array([0,0.5*m.cos(var)])
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zz)
-    
-        return linex,liney,linez,
-
-    anim = animation.FuncAnimation(fig, update, fargs=(linex,liney,linez, Xxch, Xy, Xz, Yx, Yych, Yz, Zx, Zy, Zzch, theta),frames = len(ch)+1, interval=200,
-                           repeat_delay=1000, blit=False, repeat = True)
-        
-    return anim
-
-
-
 def RotY(theta):
     ch  = np.linspace(0,theta,25)
 
@@ -445,45 +357,20 @@ def RotY(theta):
     liney, = ax.plot(Yx,Yych,Yz,'green', linewidth=4)
     linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
 
-    def init():
-  
-        linex.set_data(Xxch, Xy)
-        linex.set_3d_properties(Xz)
     
-        liney.set_data(Yx, Yych)
-        liney.set_3d_properties(Yz)
+    Xx = np.array([0,0.5*m.sin(m.pi/2+theta)])     
+    Xz = np.array([0,0.5*m.cos(m.pi/2+theta)])
+    linex.set_data(Xx, Xy)
+    linex.set_3d_properties(Xz)
+
+    liney.set_data(Yx, Yych)
+    liney.set_3d_properties(Yz)
+
+    Zx = np.array([0,0.5*m.sin(theta)])     
+    Zz = np.array([0,0.5*m.cos(theta)])
+    linez.set_data(Zx, Zy)
+    linez.set_3d_properties(Zz)
     
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zzch)
-        
-        return linex, liney, linez,
-
-
-    def update(i, linex, liney, linez, Xx, Xy, Xz, Yx, Yy, Yz, Zx, Zy, Zz, theta):
-
-        var = theta*i/25
-    
-        Xx = np.array([0,0.5*m.sin(m.pi/2+var)])     
-        Xz = np.array([0,0.5*m.cos(m.pi/2+var)])
-        linex.set_data(Xx, Xy)
-        linex.set_3d_properties(Xz)
-      
-        liney.set_data(Yx, Yy)
-        liney.set_3d_properties(Yz)
-    
-        Zx = np.array([0,0.5*m.sin(var)])     
-        Zz = np.array([0,0.5*m.cos(var)])
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zz)
-    
-        return linex,liney,linez,
-
-    anim = animation.FuncAnimation(fig, update, fargs=(linex,liney,linez, Xxch, Xy, Xz, Yx, Yych, Yz, Zx, Zy, Zzch, theta),frames = len(ch)+1, interval=200,
-                           repeat_delay=1000, blit=False, repeat = True)
-        
-    return anim
-
-
 def RotZ(theta):
     ch  = np.linspace(0,theta,25)
 
@@ -532,42 +419,214 @@ def RotZ(theta):
     liney, = ax.plot(Yx,Yych,Yz,'green', linewidth=4)
     linez, = ax.plot(Zx,Zy,Zzch,'red', linewidth=4) 
 
-    def init():
-  
-        linex.set_data(Xxch, Xy)
-        linex.set_3d_properties(Xz)
+ 
+    Xx = np.array([0,0.5*m.sin(m.pi/2+theta)])     
+    Xy = np.array([0,0.5*m.cos(m.pi/2+theta)])
+    linex.set_data(Xx, Xy)
+    linex.set_3d_properties(Xz)
+
+    Yx = np.array([0,0.5*m.sin(theta)])     
+    Yy = np.array([0,0.5*m.cos(theta)])
+    liney.set_data(Yx, Yy)
+    liney.set_3d_properties(Yz)
+
+    linez.set_data(Zx, Zy)
+    linez.set_3d_properties(Zzch)
     
-        liney.set_data(Yx, Yych)
-        liney.set_3d_properties(Yz)
     
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zzch)
+
+def tfrx(a):    
+    return np.array([[1,0,0,0],[0,m.cos(a),-m.sin(a),0],
+                     [0,m.sin(a),m.cos(a),0],[0,0,0,1]])
+def tfry(a):
+    return np.array([[m.cos(a),0,m.sin(a),0],[0,1,0,0],[-m.sin(a),0,m.cos(a),0],[0,0,0,1]])
+
+def tfrz(a):
+    return np.array([[m.cos(a),-m.sin(a),0,0],[m.sin(a),m.cos(a),0,0],[0,0,1,0],[0,0,0,1]])
+
+def tft(a):
+    return np.array([[1,0,0,a[0]],[0,1,0,a[1]],[0,0,1,a[2]],[0,0,0,1]])
+
+
+def RotateOnXRight(a):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul( mat,tfrx(a));
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+    
+def RotateOnXLeft(a):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul(tfrx(a),mat);
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+    
+    
+def TranslateOnXLeft(a):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul( tft([a,0,0]), mat);
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+     
         
-        return linex, liney, linez,
-
-
-    def update(i, linex, liney, linez, Xx, Xy, Xz, Yx, Yy, Yz, Zx, Zy, Zz, theta):
-
-        var = theta*i/25
-    
-        Xx = np.array([0,0.5*m.sin(m.pi/2+var)])     
-        Xy = np.array([0,0.5*m.cos(m.pi/2+var)])
-        linex.set_data(Xx, Xy)
-        linex.set_3d_properties(Xz)
-      
-        Yx = np.array([0,0.5*m.sin(var)])     
-        Yy = np.array([0,0.5*m.cos(var)])
-        liney.set_data(Yx, Yy)
-        liney.set_3d_properties(Yz)
-    
-        linez.set_data(Zx, Zy)
-        linez.set_3d_properties(Zz)
-    
-        return linex,liney,linez,
-
-    anim = animation.FuncAnimation(fig, update, fargs=(linex,liney,linez, Xxch, Xy, Xz, Yx, Yych, Yz, Zx, Zy, Zzch, theta),frames = len(ch)+1, interval=200,
-                           repeat_delay=1000, blit=False, repeat = True)
         
-    return anim
+def TranslateOnXRight(a):
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.set_xlim3d([-0.5, 1])
+    ax.set_ylim3d([-0.5, 1])
+    ax.set_zlim3d([0, 1])
+
+    ax.view_init(30, 30)
+
+    # load some test data for demonstration and plot a wireframe
+    ax.plot([0, 1], [0, 0], [0, 0], c='blue')
+    ax.plot([0, 0], [0, 1], [0, 0], c='green')
+    ax.plot([0, 0], [0, 0], [0, 1], c='red')
+
+
+    x_line, = ax.plot([0, 0.5], [0, 0], [0, 0], lw=6, c='blue')
+    y_line, = ax.plot([0, 0], [0, 0.5], [0, 0], lw=6, c='green')
+    z_line, = ax.plot([0, 0], [0, 0], [0, 0.5], lw=6, c='red')
+
+
+    matrix = np.array([[1.,  0.,  0., 0.5],
+                       [0.,  1.,  0., 0.5],
+                       [0.,  0.,  1., 0],
+                       [0.,  0.,  0., 1]])
+    
+    mat = np.matmul( matrix, tfrz(1));
+    tf = np.matmul( mat,tft([a,0,0]));
+
+    CoX = tf[:,0];
+    CoY = tf[:,1];
+    CoZ = tf[:,2];
+    CoO = tf[:,3];
+    l = 0.5;
+
+    
+    x_line.set_data([CoO[0], CoO[0]+l*CoX[0]],[CoO[1], CoO[1]+l*CoX[1]]);
+    x_line.set_3d_properties([CoO[2], CoO[2]+l*CoX[2]]);
+    y_line.set_data([CoO[0], CoO[0]+l*CoY[0]],[CoO[1], CoO[1]+l*CoY[1]]);
+    y_line.set_3d_properties([CoO[2], CoO[2]+l*CoY[2]]);
+    z_line.set_data([CoO[0], CoO[0]+l*CoZ[0]],[CoO[1], CoO[1]+l*CoZ[1]]);
+    z_line.set_3d_properties([CoO[2], CoO[2]+l*CoZ[2]]);
+    
 
 
