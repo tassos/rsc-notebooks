@@ -20,7 +20,7 @@ def step1():
     x_pos = 55
     y_pos = 900
     plt.text(x_pos, y_pos, "1",color='b',weight='bold')
-    rect1 = patches.Rectangle((215,650),70,55,linewidth=1,edgecolor='b',facecolor='b')
+    rect1 = patches.Rectangle((123,635),75,67,linewidth=1,edgecolor='b',facecolor='b')
 
     #second joint
     x_pos = 265
@@ -29,7 +29,7 @@ def step1():
     x_pos = 300
     y_pos = 525
     plt.text(x_pos, y_pos, "2",color='g',weight='bold')
-    rect2 = patches.Rectangle((215,260),60,100,linewidth=1,edgecolor='g',facecolor='g')
+    rect2 = patches.Rectangle((125,225),67,100,linewidth=1,edgecolor='g',facecolor='g')
 
     #third joint
     x_pos = 348
@@ -38,7 +38,7 @@ def step1():
     x_pos = 390
     y_pos = 135
     plt.text(x_pos, y_pos, "3",color='m',weight='bold')
-    rect3 = patches.Rectangle((528,280),105,55,linewidth=1,edgecolor='m',facecolor='m')
+    rect3 = patches.Rectangle((470,250),107,55,linewidth=1,edgecolor='m',facecolor='m')
 
     rectangles = [rect1, rect2, rect3]
 
@@ -57,47 +57,47 @@ def step2():
     plt.axis('off')
 
     #reference, first
-    x_pos = 270
-    y_pos = 770
-    plt.text(x_pos, y_pos, "O",color='r',weight='bold')
-    x_pos = 305
+    x_pos = 177
+    y_pos = 775
+    plt.text(x_pos, y_pos, "O",color='r',weight='bold', fontsize = 14)
+    x_pos = 225
     y_pos = 800
-    plt.text(x_pos, y_pos, "1",color='r',weight='bold')
-    plt.plot([250,250],[710,600], color="red")
-    plt.plot([250,160],[710,800], color="red")
-    plt.plot([250,400],[710,710], color="red")
+    plt.text(x_pos, y_pos, "1",color='r',weight='bold', fontsize = 10)
+    plt.plot([160,160],[710,600], color="red")
+    plt.plot([160,70],[710,800], color="red")
+    plt.plot([160,310],[710,710], color="red")
 
     #second
-    x_pos = 335
-    y_pos = 800
-    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
-    plt.plot([240,240],[710,600], color="blue")
-    plt.plot([250,190],[710,815], color="blue")
-    plt.plot([250,420],[710,660], color="blue")
+    x_pos = 260
+    y_pos = 798
+    plt.text(x_pos, y_pos, "2",color='b',weight='bold', fontsize = 10)
+    plt.plot([170,170],[710,600], color="blue")
+    plt.plot([160,100],[710,815], color="blue")
+    plt.plot([160,330],[710,660], color="blue")
 
     
     #third
-    x_pos = 260
-    y_pos = 397
-    plt.text(x_pos, y_pos, "O",color='g',weight='bold')
-    x_pos = 295
-    y_pos = 415
-    plt.text(x_pos, y_pos, "3",color='g',weight='bold')
-    plt.plot([250,250],[310,200], color="green")
-    plt.plot([250,150],[310,410], color="green")
-    plt.plot([250,420],[310,310], color="green")
+    x_pos = 175
+    y_pos = 385
+    plt.text(x_pos, y_pos, "O",color='g',weight='bold', fontsize = 14)
+    x_pos = 220
+    y_pos = 390
+    plt.text(x_pos, y_pos, "3",color='g',weight='bold', fontsize = 10)
+    plt.plot([160,160],[282,172], color="green")
+    plt.plot([160,60],[282,382], color="green")
+    plt.plot([160,330],[282,282], color="green")
 
 
     #forth
-    x_pos = 908
-    y_pos = 385
-    plt.text(x_pos, y_pos, "O",color='m',weight='bold')
-    x_pos = 950
-    y_pos = 405
-    plt.text(x_pos, y_pos, "4",color='m',weight='bold')
-    plt.plot([900,900],[310,200], color="magenta")
-    plt.plot([900,800],[310,410], color="magenta")
-    plt.plot([900,1050],[310,310], color="magenta")
+    x_pos = 870
+    y_pos = 360
+    plt.text(x_pos, y_pos, "O",color='m',weight='bold', fontsize = 14)
+    x_pos = 910
+    y_pos = 370
+    plt.text(x_pos, y_pos, "4",color='m',weight='bold', fontsize = 10)
+    plt.plot([860,860],[282,177], color="magenta")
+    plt.plot([860,760],[282,387], color="magenta")
+    plt.plot([860,1010],[282,282], color="magenta")
 
 
     ax.imshow(img)
@@ -110,19 +110,17 @@ def first_to_2nd():
     
     img = plt.imread("artwork/DGM/fig2-3.png")
 
-    #points_2st_y_ini = np.linspace(710,600,30)
     points_2st_y_fin = np.linspace(710,660,30)
-    #points_3st_y_ini = np.linspace(710,320,30)
     points_3st_y_fin = np.linspace(800,815,30)
-    points_3st_x_fin = np.linspace(160,190,30)
+    points_3st_x_fin = np.linspace(70,100,30)
 
 
     fig, ax = plt.subplots()
     plt.axis('off')
 
-    x2_ini, y2_ini = 250, 710
-    x2_fin, y2_fin = 400, 800 #250, 600
-    x3_ini, y3_ini = 250, 710
+    x2_ini, y2_ini = 160, 710
+    x2_fin, y2_fin = 310, 800 #250, 600
+    x3_ini, y3_ini = 160, 710
     x3_fin, y3_fin = 400, 710 #190, 815
 
 
@@ -135,21 +133,21 @@ def first_to_2nd():
 
 
     #first
-    x_pos = 270
-    y_pos = 770
-    plt.text(x_pos, y_pos, "O",color='r',weight='bold')
-    x_pos = 305
-    y_pos = 800
-    plt.text(x_pos, y_pos, "1",color='r',weight='bold')
-    plt.plot([250,250],[710,600], color="red")
-    plt.plot([250,160],[710,800], color="red")
-    plt.plot([250,400],[710,710], color="red")
+    x_pos = 180
+    y_pos = 774
+    plt.text(x_pos, y_pos, "O",color='r',weight='bold', fontsize = 16)
+    x_pos = 225
+    y_pos = 790
+    plt.text(x_pos, y_pos, "1",color='r',weight='bold', fontsize = 10)
+    plt.plot([160,160],[710,600], color="red")
+    plt.plot([160,70],[710,800], color="red")
+    plt.plot([160,310],[710,710], color="red")
 
 
     #second
-    x_pos = 335
-    y_pos = 800
-    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
+    x_pos = 260
+    y_pos = 790
+    plt.text(x_pos, y_pos, "2",color='b',weight='bold', fontsize = 10)
 
 
 
@@ -162,12 +160,9 @@ def first_to_2nd():
     def update(frame):
     
         
-        #y2_ini = points_2st_y_ini[frame]
         y2_fin = points_2st_y_fin[frame]
-    
         ln2.set_data([x2_ini,x2_fin], [y2_ini,y2_fin])
     
-        #y3_ini = points_3st_y_ini[frame]
         y3_fin = points_3st_y_fin[frame]
         x3_fin = points_3st_x_fin[frame]
 
@@ -191,23 +186,23 @@ def second_to_3rd():
     
     img = plt.imread("artwork/DGM/fig2-3.png")
 
-    points_1st_y_ini = np.linspace(710,320,30)
-    points_1st_y_fin = np.linspace(660,270,30)
-    points_2st_y_ini = np.linspace(710,320,30)
-    points_2st_y_fin = np.linspace(600,210,30)
-    points_3st_y_ini = np.linspace(710,320,30)
-    points_3st_y_fin = np.linspace(815,425,30)
+    points_1st_y_ini = np.linspace(710,300,30)
+    points_1st_y_fin = np.linspace(660,250,30)
+    points_2st_y_ini = np.linspace(710,300,30)
+    points_2st_y_fin = np.linspace(600,190,30)
+    points_3st_y_ini = np.linspace(710,300,30)
+    points_3st_y_fin = np.linspace(815,405,30)
 
 
     fig, ax = plt.subplots()
     plt.axis('off')
 
-    x1_ini, y1_ini = 250, 710
-    x1_fin, y1_fin = 400, 600
-    x2_ini, y2_ini = 250, 710
-    x2_fin, y2_fin = 250, 600
-    x3_ini, y3_ini = 250, 710
-    x3_fin, y3_fin = 190, 815
+    x1_ini, y1_ini = 160, 710
+    x1_fin, y1_fin = 310, 600
+    x2_ini, y2_ini = 160, 710
+    x2_fin, y2_fin = 160, 600
+    x3_ini, y3_ini = 160, 710
+    x3_fin, y3_fin = 100, 815
 
 
     ln,  = ax.plot(x1_ini, y1_ini, color='g')
@@ -220,24 +215,24 @@ def second_to_3rd():
 
 
     #second
-    x_pos = 270
-    y_pos = 770
-    plt.text(x_pos, y_pos, "O",color='b',weight='bold')
-    x_pos = 335
-    y_pos = 800
-    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
-    plt.plot([250,250],[710,600], color="blue")
-    plt.plot([250,190],[710,815], color="blue")
-    plt.plot([250,420],[710,660], color="blue")
+    x_pos = 180
+    y_pos = 774
+    plt.text(x_pos, y_pos, "O",color='b',weight='bold', fontsize = 16)
+    x_pos = 260
+    y_pos = 790
+    plt.text(x_pos, y_pos, "2",color='b',weight='bold', fontsize = 10)
+    plt.plot([160,160],[710,600], color="blue")
+    plt.plot([160,100],[710,815], color="blue")
+    plt.plot([160,330],[710,660], color="blue")
 
 
     #third
-    x_pos = 260
-    y_pos = 397
-    plt.text(x_pos, y_pos, "O",color='g',weight='bold')
-    x_pos = 295
-    y_pos = 415
-    plt.text(x_pos, y_pos, "3",color='g',weight='bold')
+    x_pos = 177
+    y_pos = 380
+    plt.text(x_pos, y_pos, "O",color='g',weight='bold', fontsize = 16)
+    x_pos = 225
+    y_pos = 390
+    plt.text(x_pos, y_pos, "3",color='g',weight='bold', fontsize = 11)
 
 
 
@@ -280,23 +275,23 @@ def third_to_4th():
 
     img = plt.imread("artwork/DGM/fig2-3.png")
 
-    points_1st_x_ini = np.linspace(250,900,30)
-    points_1st_x_fin = np.linspace(250,900,30)
-    points_2st_x_ini = np.linspace(250,900,30)
-    points_2st_x_fin = np.linspace(150,800,30)
-    points_3st_x_ini = np.linspace(250,900,30)
-    points_3st_x_fin = np.linspace(420,1050,30)
+    points_1st_x_ini = np.linspace(160,870,30)
+    points_1st_x_fin = np.linspace(160,870,30)
+    points_2st_x_ini = np.linspace(160,870,30)
+    points_2st_x_fin = np.linspace(90,770,30)
+    points_3st_x_ini = np.linspace(160,870,30)
+    points_3st_x_fin = np.linspace(330,975,30)
 
 
     fig, ax = plt.subplots()
     plt.axis('off')
 
-    x1_ini, y1_ini = 250, 310
-    x1_fin, y1_fin = 250, 200
-    x2_ini, y2_ini = 250, 310
-    x2_fin, y2_fin = 150, 400
-    x3_ini, y3_ini = 250, 310
-    x3_fin, y3_fin = 420, 310
+    x1_ini, y1_ini = 160, 280
+    x1_fin, y1_fin = 160, 170
+    x2_ini, y2_ini = 160, 280
+    x2_fin, y2_fin = 60, 370
+    x3_ini, y3_ini = 160, 280
+    x3_fin, y3_fin = 330, 280
 
 
     ln,  = ax.plot(x1_ini, y1_ini, color='m')
@@ -309,23 +304,23 @@ def third_to_4th():
 
 
     #third
-    x_pos = 260
-    y_pos = 397
-    plt.text(x_pos, y_pos, "O",color='g',weight='bold')
-    x_pos = 295
-    y_pos = 415
-    plt.text(x_pos, y_pos, "3",color='g',weight='bold')
-    plt.plot([250,250],[310,200], color="green")
-    plt.plot([250,150],[310,410], color="green")
-    plt.plot([250,420],[310,310], color="green")
+    x_pos = 177
+    y_pos = 380
+    plt.text(x_pos, y_pos, "O",color='g',weight='bold', fontsize = 16)
+    x_pos = 225
+    y_pos = 390
+    plt.text(x_pos, y_pos, "3",color='g',weight='bold', fontsize = 11)
+    plt.plot([160,160],[282,172], color="green")
+    plt.plot([160,60],[282,382], color="green")
+    plt.plot([160,330],[282,282], color="green")
 
     #fourth
-    x_pos = 908
-    y_pos = 385
-    plt.text(x_pos, y_pos, "O",color='m',weight='bold')
-    x_pos = 950
-    y_pos = 405
-    plt.text(x_pos, y_pos, "4",color='m',weight='bold')
+    x_pos = 870
+    y_pos = 360
+    plt.text(x_pos, y_pos, "O",color='m',weight='bold', fontsize = 16)
+    x_pos = 915
+    y_pos = 375
+    plt.text(x_pos, y_pos, "4",color='m',weight='bold',fontsize = 11)
 
 
     def init():
