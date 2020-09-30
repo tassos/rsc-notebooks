@@ -14,29 +14,29 @@ def step1():
 
 
     #first joint
-    x_pos = 120
-    y_pos = 865
-    plt.text(x_pos, y_pos, "q",color='b',weight='bold')
-    x_pos = 140
-    y_pos = 890
+    x_pos = 10
+    y_pos = 885
+    plt.text(x_pos, y_pos, "q",color='b',weight='bold', fontsize = 15)
+    x_pos = 55
+    y_pos = 900
     plt.text(x_pos, y_pos, "1",color='b',weight='bold')
     rect1 = patches.Rectangle((215,650),70,55,linewidth=1,edgecolor='b',facecolor='b')
 
     #second joint
-    x_pos = 350
-    y_pos = 520
-    plt.text(x_pos, y_pos, "q",color='g',weight='bold')
-    x_pos = 375
-    y_pos = 555
+    x_pos = 265
+    y_pos = 515
+    plt.text(x_pos, y_pos, "q",color='g',weight='bold', fontsize = 15)
+    x_pos = 300
+    y_pos = 525
     plt.text(x_pos, y_pos, "2",color='g',weight='bold')
     rect2 = patches.Rectangle((215,260),60,100,linewidth=1,edgecolor='g',facecolor='g')
 
     #third joint
-    x_pos = 428
-    y_pos = 160
-    plt.text(x_pos, y_pos, "q",color='m',weight='bold')
-    x_pos = 456
-    y_pos = 187
+    x_pos = 348
+    y_pos = 120
+    plt.text(x_pos, y_pos, "q",color='m',weight='bold', fontsize = 15)
+    x_pos = 390
+    y_pos = 135
     plt.text(x_pos, y_pos, "3",color='m',weight='bold')
     rect3 = patches.Rectangle((528,280),105,55,linewidth=1,edgecolor='m',facecolor='m')
 
