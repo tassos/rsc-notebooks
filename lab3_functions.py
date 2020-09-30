@@ -14,31 +14,32 @@ def defineJoints():
 
 
     #first joint
-    x_pos = 120
-    y_pos = 865
-    plt.text(x_pos, y_pos, "q",color='b',weight='bold')
-    x_pos = 140
-    y_pos = 890
+    x_pos = 10
+    y_pos = 885
+    plt.text(x_pos, y_pos, "q",color='b',weight='bold', fontsize = 15)
+    x_pos = 55
+    y_pos = 900
     plt.text(x_pos, y_pos, "1",color='b',weight='bold')
-    rect1 = patches.Rectangle((215,650),70,55,linewidth=1,edgecolor='b',facecolor='b')
+    rect1 = patches.Rectangle((123,635),75,67,linewidth=1,edgecolor='b',facecolor='b')
 
     #second joint
-    x_pos = 350
-    y_pos = 520
-    plt.text(x_pos, y_pos, "q",color='g',weight='bold')
-    x_pos = 375
-    y_pos = 555
+    x_pos = 265
+    y_pos = 515
+    plt.text(x_pos, y_pos, "q",color='g',weight='bold', fontsize = 15)
+    x_pos = 300
+    y_pos = 525
     plt.text(x_pos, y_pos, "2",color='g',weight='bold')
-    rect2 = patches.Rectangle((215,260),60,100,linewidth=1,edgecolor='g',facecolor='g')
+    rect2 = patches.Rectangle((125,225),67,100,linewidth=1,edgecolor='g',facecolor='g')
 
     #third joint
-    x_pos = 428
-    y_pos = 160
-    plt.text(x_pos, y_pos, "q",color='m',weight='bold')
-    x_pos = 456
-    y_pos = 187
+    x_pos = 348
+    y_pos = 120
+    plt.text(x_pos, y_pos, "q",color='m',weight='bold', fontsize = 15)
+    x_pos = 390
+    y_pos = 135
     plt.text(x_pos, y_pos, "3",color='m',weight='bold')
-    rect3 = patches.Rectangle((528,280),105,55,linewidth=1,edgecolor='m',facecolor='m')
+    rect3 = patches.Rectangle((470,250),107,55,linewidth=1,edgecolor='m',facecolor='m')
+
 
     rectangles = [rect1, rect2, rect3]
 
@@ -56,31 +57,31 @@ def addZ():
 
 
     #Z1
-    x_pos = 270
+    x_pos = 190
     y_pos = 630
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 300
+    x_pos = 220
     y_pos = 640
     plt.text(x_pos, y_pos, "1",color='r',weight='bold')
-    plt.plot([250,250],[710,600], color="red", linewidth=4)
+    plt.plot([170,170],[710,600], color="red", linewidth=4)
 
     #Z2
-    x_pos = 270
-    y_pos = 200
+    x_pos = 190
+    y_pos = 175
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 300
-    y_pos = 210
+    x_pos = 220
+    y_pos = 185
     plt.text(x_pos, y_pos, "2",color='r',weight='bold')
-    plt.plot([250,250],[310,200], color="red", linewidth=4)
+    plt.plot([170,170],[285,175], color="red", linewidth=4)
 
     #Z3
-    x_pos = 650
-    y_pos = 370
+    x_pos = 590
+    y_pos = 335
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 680
-    y_pos = 380
+    x_pos = 620
+    y_pos = 345
     plt.text(x_pos, y_pos, "3",color='r',weight='bold')
-    plt.plot([600,700],[310,310], color="red", linewidth=4)
+    plt.plot([540,650],[285,285], color="red", linewidth=4)
 
 
     ax.imshow(img)
@@ -93,53 +94,53 @@ def addX():
     plt.axis('off')
 
 
-    #Z1
-    x_pos = 270
+    #CF1
+    x_pos = 190
     y_pos = 630
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 300
+    x_pos = 220
     y_pos = 640
     plt.text(x_pos, y_pos, "1",color='r',weight='bold')
-    plt.plot([250,250],[710,600], color="red")
-    x_pos = 400
+    plt.plot([170,170],[710,600], color="red")
+    x_pos = 320
     y_pos = 780
     plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 430
+    x_pos = 350
     y_pos = 790
     plt.text(x_pos, y_pos, "1",color='b',weight='bold')
-    plt.plot([250,400],[710,710], color="blue", linewidth = 4)
+    plt.plot([170,320],[710,710], color="blue", linewidth = 4)
 
-    #Z2
-    x_pos = 270
-    y_pos = 200
-    plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 300
-    y_pos = 210
-    plt.text(x_pos, y_pos, "2",color='r',weight='bold')
-    plt.plot([250,250],[310,200], color="red")
+    #CF2
     x_pos = 190
-    y_pos = 410
-    plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 220
-    y_pos = 420
-    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
-    plt.plot([250,150],[310,410], color="blue", linewidth = 4)
-
-    #Z3
-    x_pos = 650
-    y_pos = 370
+    y_pos = 175
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 680
-    y_pos = 380
-    plt.text(x_pos, y_pos, "3",color='r',weight='bold')
-    plt.plot([600,700],[310,310], color="red")
-    x_pos = 610
-    y_pos = 230
+    x_pos = 220
+    y_pos = 185
+    plt.text(x_pos, y_pos, "2",color='r',weight='bold')
+    plt.plot([170,170],[285,175], color="red")
+    x_pos = 110
+    y_pos = 385
     plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 640
-    y_pos = 240
+    x_pos = 140
+    y_pos = 395
+    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
+    plt.plot([170,70],[285,385], color="blue", linewidth = 4)
+
+    #CF3
+    x_pos = 590
+    y_pos = 335
+    plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
+    x_pos = 620
+    y_pos = 345
+    plt.text(x_pos, y_pos, "3",color='r',weight='bold')
+    plt.plot([540,650],[285,285], color="red")
+    x_pos = 550
+    y_pos = 201
+    plt.text(x_pos, y_pos, "X",color='b',weight='bold')
+    x_pos = 580
+    y_pos = 215
     plt.text(x_pos, y_pos, "3",color='b',weight='bold')
-    plt.plot([600,600],[310,200], color="blue", linewidth = 4)
+    plt.plot([540,540],[285,175], color="blue", linewidth = 4)
 
 
     ax.imshow(img)
@@ -152,74 +153,74 @@ def addY():
     plt.axis('off')
 
 
-    #Z1
-    x_pos = 170
+    #CF1
+    x_pos = 80
     y_pos = 630
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 200
+    x_pos = 110
     y_pos = 640
     plt.text(x_pos, y_pos, "1",color='r',weight='bold')
-    plt.plot([250,250],[710,600], color="red")
-    x_pos = 400
+    plt.plot([170,170],[710,600], color="red")
+    x_pos = 320
     y_pos = 780
     plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 430
+    x_pos = 350
     y_pos = 790
     plt.text(x_pos, y_pos, "1",color='b',weight='bold')
-    plt.plot([250,400],[710,710], color="blue")
-    x_pos = 310
+    plt.plot([170,320],[710,710], color="blue")
+    x_pos = 240
     y_pos = 630
     plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
-    x_pos = 340
+    x_pos = 260
     y_pos = 640
     plt.text(x_pos, y_pos, "1",color='g',weight='bold')
-    plt.plot([250,310],[710,605], color="green", linewidth = 4)
+    plt.plot([170,240],[710,605], color="green", linewidth = 4)
 
-    #Z2
-    x_pos = 270
-    y_pos = 200
-    plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 300
-    y_pos = 210
-    plt.text(x_pos, y_pos, "2",color='r',weight='bold')
-    plt.plot([250,250],[310,200], color="red")
+    #CF2
     x_pos = 190
-    y_pos = 410
-    plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 220
-    y_pos = 420
-    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
-    plt.plot([250,150],[310,410], color="blue")
-    x_pos = 400
-    y_pos = 370
-    plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
-    x_pos = 430
-    y_pos = 380
-    plt.text(x_pos, y_pos, "2",color='g',weight='bold')
-    plt.plot([250,420],[310,310], color="green", linewidth = 4)
-
-    #Z3
-    x_pos = 650
-    y_pos = 370
+    y_pos = 175
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 680
-    y_pos = 380
-    plt.text(x_pos, y_pos, "3",color='r',weight='bold')
-    plt.plot([600,700],[310,310], color="red")
-    x_pos = 610
-    y_pos = 230
+    x_pos = 220
+    y_pos = 185
+    plt.text(x_pos, y_pos, "2",color='r',weight='bold')
+    plt.plot([170,170],[285,175], color="red")
+    x_pos = 110
+    y_pos = 385
     plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 640
-    y_pos = 240
-    plt.text(x_pos, y_pos, "3",color='b',weight='bold')
-    plt.plot([600,600],[310,200], color="blue")
-    x_pos = 550
-    y_pos = 420
+    x_pos = 140
+    y_pos = 395
+    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
+    plt.plot([170,70],[285,385], color="blue")
+    x_pos = 320
+    y_pos = 345
     plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
+    x_pos = 350
+    y_pos = 355
+    plt.text(x_pos, y_pos, "2",color='g',weight='bold')
+    plt.plot([170,340],[285,285], color="green", linewidth = 4)
+
+    #CF3
+    x_pos = 590
+    y_pos = 335
+    plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
+    x_pos = 620
+    y_pos = 345
+    plt.text(x_pos, y_pos, "3",color='r',weight='bold')
+    plt.plot([540,650],[285,285], color="red")
+    x_pos = 550
+    y_pos = 201
+    plt.text(x_pos, y_pos, "X",color='b',weight='bold')
     x_pos = 580
-    y_pos = 430
+    y_pos = 215
+    plt.text(x_pos, y_pos, "3",color='b',weight='bold')
+    plt.plot([540,540],[285,175], color="blue")
+    x_pos = 490
+    y_pos = 395
+    plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
+    x_pos = 520
+    y_pos = 405
     plt.text(x_pos, y_pos, "3",color='g',weight='bold')
-    plt.plot([600,500],[310,410], color="green", linewidth = 4)
+    plt.plot([540,440],[285,385], color="green", linewidth = 4)
 
     ax.imshow(img)
     
@@ -230,103 +231,103 @@ def ref_and_fin():
     plt.axis('off')
 
 
-    #Z0
-    x_pos = 100
+    #CF0
+    x_pos = 20
     y_pos = 630
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 130
+    x_pos = 50
     y_pos = 640
     plt.text(x_pos, y_pos, "0",color='r',weight='bold')
-    x_pos = 460
+    x_pos = 390
     y_pos = 780
     plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 490
+    x_pos = 420
     y_pos = 790
     plt.text(x_pos, y_pos, "0",color='b',weight='bold')
 
-    #Z1
-    x_pos = 170
+    #CF1
+    x_pos = 80
     y_pos = 630
     plt.text(x_pos, y_pos, "Z",color='r')
-    x_pos = 200
+    x_pos = 110
     y_pos = 640
     plt.text(x_pos, y_pos, "1",color='r')
-    plt.plot([250,250],[710,600], color="red")
-    x_pos = 400
+    plt.plot([170,170],[710,600], color="red")
+    x_pos = 320
     y_pos = 780
     plt.text(x_pos, y_pos, "X",color='b')
-    x_pos = 430
+    x_pos = 350
     y_pos = 790
     plt.text(x_pos, y_pos, "1",color='b')
-    plt.plot([250,400],[710,710], color="blue")
-    x_pos = 310
+    plt.plot([170,320],[710,710], color="blue")
+    x_pos = 240
     y_pos = 630
-    plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
-    x_pos = 340
+    plt.text(x_pos, y_pos, "Y",color='g')
+    x_pos = 260
     y_pos = 640
-    plt.text(x_pos, y_pos, "1",color='g',weight='bold')
-    plt.plot([250,310],[710,605], color="green")
+    plt.text(x_pos, y_pos, "1",color='g')
+    plt.plot([170,240],[710,605], color="green")
 
-    #Z2
-    x_pos = 270
-    y_pos = 200
-    plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 300
-    y_pos = 210
-    plt.text(x_pos, y_pos, "2",color='r',weight='bold')
-    plt.plot([250,250],[310,200], color="red")
+    #CF2
     x_pos = 190
-    y_pos = 410
-    plt.text(x_pos, y_pos, "X",color='b',weight='bold')
+    y_pos = 175
+    plt.text(x_pos, y_pos, "Z",color='r')
     x_pos = 220
-    y_pos = 420
-    plt.text(x_pos, y_pos, "2",color='b',weight='bold')
-    plt.plot([250,150],[310,410], color="blue")
-    x_pos = 400
-    y_pos = 370
-    plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
-    x_pos = 430
-    y_pos = 380
-    plt.text(x_pos, y_pos, "2",color='g',weight='bold')
-    plt.plot([250,420],[310,310], color="green")
+    y_pos = 185
+    plt.text(x_pos, y_pos, "2",color='r')
+    plt.plot([170,170],[285,175], color="red")
+    x_pos = 110
+    y_pos = 385
+    plt.text(x_pos, y_pos, "X",color='b')
+    x_pos = 140
+    y_pos = 395
+    plt.text(x_pos, y_pos, "2",color='b')
+    plt.plot([170,70],[285,385], color="blue")
+    x_pos = 320
+    y_pos = 345
+    plt.text(x_pos, y_pos, "Y",color='g')
+    x_pos = 350
+    y_pos = 355
+    plt.text(x_pos, y_pos, "2",color='g')
+    plt.plot([170,340],[285,285], color="green")
 
-    #Z3
-    x_pos = 650
-    y_pos = 370
-    plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 680
-    y_pos = 380
-    plt.text(x_pos, y_pos, "3",color='r',weight='bold')
-    plt.plot([600,700],[310,310], color="red")
-    x_pos = 610
-    y_pos = 230
-    plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 640
-    y_pos = 240
-    plt.text(x_pos, y_pos, "3",color='b',weight='bold')
-    plt.plot([600,600],[310,200], color="blue")
+    #CF3
+    x_pos = 590
+    y_pos = 335
+    plt.text(x_pos, y_pos, "Z",color='r')
+    x_pos = 620
+    y_pos = 345
+    plt.text(x_pos, y_pos, "3",color='r')
+    plt.plot([540,650],[285,285], color="red")
     x_pos = 550
-    y_pos = 420
-    plt.text(x_pos, y_pos, "Y",color='g',weight='bold')
+    y_pos = 201
+    plt.text(x_pos, y_pos, "X",color='b')
     x_pos = 580
-    y_pos = 430
-    plt.text(x_pos, y_pos, "3",color='g',weight='bold')
-    plt.plot([600,500],[310,410], color="green")
+    y_pos = 215
+    plt.text(x_pos, y_pos, "3",color='b')
+    plt.plot([540,540],[285,175], color="blue")
+    x_pos = 490
+    y_pos = 395
+    plt.text(x_pos, y_pos, "Y",color='g')
+    x_pos = 520
+    y_pos = 405
+    plt.text(x_pos, y_pos, "3",color='g')
+    plt.plot([540,440],[285,385], color="green")
 
     #Zn
-    x_pos = 1000
-    y_pos = 370
+    x_pos = 970
+    y_pos = 345
     plt.text(x_pos, y_pos, "Z",color='r',weight='bold')
-    x_pos = 1030
-    y_pos = 380
+    x_pos = 1000
+    y_pos = 355
     plt.text(x_pos, y_pos, "4",color='r',weight='bold')
-    x_pos = 930
-    y_pos = 230
+    x_pos = 900
+    y_pos = 205
     plt.text(x_pos, y_pos, "X",color='b',weight='bold')
-    x_pos = 960
-    y_pos = 240
+    x_pos = 930
+    y_pos = 215
     plt.text(x_pos, y_pos, "4",color='b',weight='bold')
-    plt.plot([900,900],[310,200], color="blue",linewidth = 4)
-    plt.plot([900,1050],[310,310], color="red",linewidth = 4)
+    plt.plot([870,870],[285,175], color="blue",linewidth = 4)
+    plt.plot([870,1020],[285,285], color="red",linewidth = 4)
 
     ax.imshow(img)
