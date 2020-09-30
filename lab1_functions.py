@@ -53,12 +53,32 @@ def showAxes(x,y,z):
         Y[i,:] = aux
 
     #make them limited in values
-#     found = next(i for i,v in enumerate(Z[2,:]) if v > 0.99)
-    
+
     Z[:,i] /= np.linalg.norm(Z[:,i])
     X[i,:] /= np.linalg.norm(X[i,:])
     Y[i,:] /= np.linalg.norm(Y[i,:])
 
+    #limit the magnitude of Z 
+    for i in range(0, l):
+        mZ = m.sqrt(Z[0,i] ** 2 + Z[1,i] ** 2 + Z[2,i] ** 2) 
+        if mZ>1:
+            Z = Z[:,0:i]
+            break
+    
+    #limit the magnitude of X
+    for i in range(0, l):
+        mX = m.sqrt(X[i,0] ** 2 + X[i,1] ** 2 + X[i,2] ** 2) 
+        if mX>1:
+            X = X[0:i,:]
+            break
+            
+    #limit the magnitude of X
+    for i in range(0, l):
+        mY = m.sqrt(Y[i,0] ** 2 + Y[i,1] ** 2 + Y[i,2] ** 2) 
+        if mY>1:
+            Y = Y[0:i,:]
+            break
+            
     ax.plot3D(Z[0,:], Z[1,:], Z[2,:], 'red')
     ax.plot3D(X[:,0], X[:,1], X[:,2], 'blue')
     ax.plot3D(Y[:,0], Y[:,1], Y[:,2], 'green')
@@ -252,6 +272,7 @@ def RotX(theta):
     #set plot
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+    ax.view_init(30, 30)
 
     X = np.linspace(0, 1, 50)
     Y = np.linspace(0, 1, 50)
@@ -315,6 +336,7 @@ def RotY(theta):
     #set plot
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+    ax.view_init(30, 30)
 
     X = np.linspace(0, 1, 50)
     Y = np.linspace(0, 1, 50)
@@ -377,6 +399,7 @@ def RotZ(theta):
     #set plot
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+    ax.view_init(30, 30)
 
     X = np.linspace(0, 1, 50)
     Y = np.linspace(0, 1, 50)
