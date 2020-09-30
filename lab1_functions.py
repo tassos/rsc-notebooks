@@ -1,79 +1,6 @@
-from __future__ import print_function
-
-from mpl_toolkits.mplot3d import axes3d
 import numpy as np
-from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
 import math as m
-from matplotlib import animation
-
-def showAxes(x,y,z):
-
-
-    Zx = np.linspace(0,x)
-    Zy = np.linspace(0,y)
-    Zz = np.linspace(0,z)
-    Z  = np.array([Zx,Zy,Zz]) 
-    
-    ### setting up 3d figure with limits on axes
-    fig = plt.figure()
-    ax = plt.axes(projection='3d')
-    ax.set_zlim(-1, 1)  
-    ax.set_xlim(-1, 1)  
-    ax.set_ylim(-1, 1)  
-
-    l = Z[0,:].size
-
-    ### cross product with a helper vector that is not on the same axis, for X
-
-    helper = np.full((50,3), [1,0,0])
-    val = bool(0)
-    
-    #check if Z vector is on a different axis than [1,0,0](helper) and change if yes
-    for i in range(0,l):
-        if  np.array_equal(Z[:,i], np.array([1.,0.,0.])):
-            val = bool(1)
-
-    if val == bool(1):
-        helper = np.full((50,3), [0,1,0])
-
-        
-        
-    ## cross product of X and Z for Y
-
-    X = np.empty([l,3])
-    Y = np.empty([l,3])
-
-    for i in range(0,l):
-        aux = np.cross([Z[:,i]],[helper[i,:]])
-        X[i,:] = aux
-    
-    for i in range(0,l):
-        aux = np.cross(Z[:,i],X[i,:])
-        Y[i,:] = aux
-
-    #make them limited in values
-#     found = next(i for i,v in enumerate(Z[2,:]) if v > 0.99)
-    
-    Z[:,i] /= np.linalg.norm(Z[:,i])
-    X[i,:] /= np.linalg.norm(X[i,:])
-    Y[i,:] /= np.linalg.norm(Y[i,:])
-
-    ax.plot3D(Z[0,:], Z[1,:], Z[2,:], 'red')
-    ax.plot3D(X[:,0], X[:,1], X[:,2], 'blue')
-    ax.plot3D(Y[:,0], Y[:,1], Y[:,2], 'green')
-
-    
-    ### axes labels
-    zdirs = ( 'x', 'y', 'z')
-    xs = ( X[-1,0]/2, Y[-1,0]/2, Z[-1,0]/2 )
-    ys = ( X[-1,1]/2, Y[-1,1]/2, Z[-1,1]/2 )
-    zs = ( X[-1,2]/2, Y[-1,2]/2, Z[-1,2]/2 )
-
-    for zdir, x, y, z in zip(zdirs, xs, ys, zs):
-        label = '%s' % (zdir)
-        ax.text(x, y, z, label, zdir)
-    
     
 def TransX(d):
     ch  = np.linspace(0,d,25)
@@ -92,7 +19,7 @@ def TransX(d):
     # Set the axes' limits so they aren't recalculated each frame.
     ax.set_zlim(-1, 1)  
     ax.set_xlim(0, 1)  
-    ax.set_ylim(0, 1)  
+    ax.set_ylim(0, 1)
 
     
     #the reference system of axes
