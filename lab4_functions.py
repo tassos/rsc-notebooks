@@ -6,6 +6,7 @@ import numpy as np
 from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
 from robopy import *
+from sympy import *
 
 def plot_robot(qs):
     robot = model.Puma560()
@@ -46,53 +47,6 @@ def see_end_effector(q1, q2, q3, q4, q5, q6):
     
 def see_joint_angles(Px,Py,Pz):
     
-#     xs = 0.0 
-#     xe = Px
-#     ys = 0.0 
-#     ye = Py
-#     zs = 0.0 
-#     ze = Pz 
-#     T  = 5
-#     dss, dse, ddss, ddse = 0,0,0,0
-#     steps = 100*T
-#     time = np.linspace(0,T,steps)
-#     timed = np.array((np.power(time,5),np.power(time,4),np.power(time,3),np.power(time,2),time,np.ones((1,steps))))
-    
-#     A = np.array([[0,0,0,0,0,1],
-#                   [T**5, T**4, T**3,T**2, T, 1],
-#                   [0,0,0,0,1,0],
-#                   [5*T**4,4*T**3,3*T**2,2*T,1,0],
-#                   [0,0,0,2,0,0],
-#                   [20*T**3,12*T**2,6*T,2,0,0]]) 
-    
-#     inpt = np.array([0,1,dss,dse,ddss,ddse])
-#     inpt.shape = (6,1)
-#     sol = np.linalg.inv(A).dot(inpt)
-    
-#     s = sol[0]*timed[0]+sol[1]*timed[1]+sol[2]*timed[2]+sol[3]*timed[3]+sol[4]*timed[4]+sol[5]*timed[5]
-#     x = (1-s)*xs+s*xe
-#     y = (1-s)*ys+s*ye
-#     z = (1-s)*zs+s*ze
-    
-#     x.shape = (steps,1)
-#     y.shape = (steps,1)
-#     z.shape = (steps,1)
-    
-#      robot = model.Puma560()
-#     qs = np.zeros((steps,6))
-#     for i in range(steps):
-#         if i == 0:
-# #             qs[i,:] = robot.ikine(robopy.transl(x[i,0],y[i,0],z[i,0])*rpy2tr(), q0=[0,0,0,0,0,0], unit="rad")            
-#             qs[i,:] = robot.ikine(robopy.transl(x[i,0],y[i,0],z[i,0]), q0=[0,0,0,0,0,0], unit="rad")
-
-#         else:
-#             qs[i,:] = robot.ikine(robopy.transl(x[i,0],y[i,0],z[i,0]), q0=qs[i-1,:], unit="rad")
-
-#     print("The joint angles for each iteration are:")
-#     for i in range(steps):
-#         print("-----\n q1 = %r, q2 = %r, q3 = %r, q4 = %r, q5 = %r, q6 = %r"
-#               % (qs[i,0], qs[i,1],qs[i,2], qs[i,3], qs[i,4], qs[i,5]))
-
     robot = model.Puma560() 
     T = transl(Px,Py,Pz)
     qs = robot.ikine(T)
@@ -100,6 +54,58 @@ def see_joint_angles(Px,Py,Pz):
                % (qs[0,0], qs[0,1],qs[0,2], qs[0,3], qs[0,4], qs[0,5]))
     plot_robot(qs)
     
+       
+def trotx_sym(theta):
+    
+    ct = cos(theta)
+    st = sin(theta)
+    tm = Matrix([[1, 0, 0], [0, ct, -st], [0, st, ct]])
+    
+    tm = tm.row_insert(3, Matrix([[0,0,0]]))
+    tm = tm.col_insert(3, Matrix([0,0,0,1]))
+    
+    return tm
+    
+    
+    
+def troty_sym(theta):
+    
+    ct = cos(theta)
+    st = sin(theta)
+    tm = Matrix([[ct, 0, st], [0, 1, 0], [-st, 0, ct]])
+    
+    tm = tm.row_insert(3, Matrix([[0,0,0]]))
+    tm = tm.col_insert(3, Matrix([0,0,0,1]))
+    
+    return tm
+    
+    
+def trotz_sym(theta):
+    
+    ct = cos(theta)
+    st = sin(theta)
+    tm = Matrix([[ct, -st, 0], [st, ct, 0], [0, 0, 1]])
+    
+    tm = tm.row_insert(3, Matrix([[0,0,0]]))
+    tm = tm.col_insert(3, Matrix([0,0,0,1]))
+    
+    return tm  
+    
+    
+    
+def transl_sym(x,y,z):
+     
+    t = Matrix([[1,0,0,x], [0,1,0,y], [0,0,1,z], [0,0,0,1]])
+    
+    return t
 
 
-                      
+    
+    
+    
+    
+    
+    
+    
+    
+    
