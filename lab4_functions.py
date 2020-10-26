@@ -6,6 +6,7 @@ import numpy as np
 from ipywidgets import interact, interactive, fixed, interact_manual
 import ipywidgets as widgets
 from robopy import *
+from robopy import util as ut
 from sympy import *
 
 def plot_robot(qs):
@@ -26,7 +27,7 @@ def see_end_effector(q1, q2, q3, q4, q5, q6):
     Ts = robot.fkine(qs)
     
     N = 100
-    traj = util.ctraj(Ts, Te, N)._list
+    traj = ut.ctraj(Ts, Te, N)._list
                      
     q = np.zeros((N,6))      
     for i in range(N):
